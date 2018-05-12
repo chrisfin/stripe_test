@@ -28,9 +28,19 @@ class ChargesController < ApplicationController
     @amount = 2500
 
     customer = Stripe::Customer.create(
-      :email => params[:stripeEmail],
+      :email => params[:email],
       :source  => params[:stripeToken]
     )
+
+    #unless User.find_by(email: customer.email)
+      user = User.new(
+        :first_name => params[:first_name],
+        :last_name => params[:last_name],
+        :email => customer.email,
+        :cus => customer.id,
+      )
+      user.save!
+    #end
 
     charge = Stripe::Charge.create(
       :customer    => customer.id,
