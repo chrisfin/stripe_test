@@ -1,37 +1,22 @@
 <h1>Stripe Test Implementations</h1>
 
- <div class="checkout_container">
-    <h2>Stripe Checkout</h2>
-    <%= form_tag charges_path do %>
-      <article>
-        <% if flash[:error].present? %>
-          <div id="error_explanation">
-            <p><%= flash[:error] %></p>
-          </div>
-        <% end %>
-        <label class="amount">
-          <span>Amount: $5.00</span>
-        </label>
-      </article>
-
-      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-              data-description="A month's subscription"
-              data-amount="500"
-              data-locale="auto">
-      </script>
-    <% end %>
-
-  </div>
-
 <div class="checkout_container">
     <h2>Stripe Elements</h2>
 
     <form action="/charges" method="post" id="payment-form">
     	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-row">
-        <label for="card-element">
-          Credit or debit card
+        <label>
+          <span>First Name</span>
+          <input name="first_name" class="field" placeholder="Jenny" required>
+        </label>
+        <label>
+          <span>Last Name</span>
+          <input name="last_name" class="field" placeholder="Battery" required>
+        </label>
+        <label>
+          <span>Email</span>
+          <input name="email" type="email" class="field" placeholder="jenny@example.com" required>
         </label>
         <div id="card-element">
           <!-- A Stripe Element will be inserted here. -->
@@ -45,6 +30,10 @@
     </form>
 
     <%= javascript_include_tag "stripe_elements" %>
+
+    <div>
+      <p>Returning customer?</p>
+    </div>  
 
 </div>
 
