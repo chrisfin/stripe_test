@@ -25,7 +25,7 @@ class ChargesController < ApplicationController
   # POST /charges.json
   def create
     # Amount in cents
-    @amount = 500
+    @amount = 2500
 
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
@@ -36,17 +36,19 @@ class ChargesController < ApplicationController
       :customer    => customer.id,
       :amount      => @amount,
       :description => 'Rails Stripe customer',
-      :currency    => 'usd'
+      :currency    => 'usd',
+      :statement_descriptor => 'LiveArticle Sub',
+      :metadata => {'order_id' => 6735},
     )
 
     logger.info "*" * 80
     logger.info params
     logger.info "*" * 80
 
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_charge_path
-end
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to new_charge_path
+  end
 
   # PATCH/PUT /charges/1
   # PATCH/PUT /charges/1.json
