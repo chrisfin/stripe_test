@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512050009) do
+ActiveRecord::Schema.define(version: 20180513214237) do
 
   create_table "charges", force: :cascade do |t|
     t.string "token"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180512050009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cus"
+    t.string "password_digest"
   end
 
 end

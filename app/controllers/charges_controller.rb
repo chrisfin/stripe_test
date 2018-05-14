@@ -25,24 +25,14 @@ class ChargesController < ApplicationController
   # POST /charges.json
   def create
     # Amount in cents
-    @amount = 2500
+    @amount = 3500
 
     customer = Stripe::Customer.create(
       :email => params[:email],
       :source  => params[:stripeToken]
     )
 
-    #unless User.find_by(email: customer.email)
-      user = User.new(
-        :first_name => params[:first_name],
-        :last_name => params[:last_name],
-        :email => customer.email,
-        :cus => customer.id,
-      )
-      user.save!
-    #end
-
-    charge = Stripe::Charge.create(
+    stripe_charge = Stripe::Charge.create(
       :customer    => customer.id,
       :amount      => @amount,
       :description => 'Rails Stripe customer',
@@ -50,6 +40,35 @@ class ChargesController < ApplicationController
       :statement_descriptor => 'LiveArticle Sub',
       :metadata => {'order_id' => 6735},
     )
+
+    @user = User.find_by(email: customer.email)
+
+    unless @user
+      new_user = User.new(
+        :first_name => params[:first_name],
+        :last_name => params[:last_name],
+        :email => customer.email,
+        :cus => customer.id,
+      )
+      new_user.save
+      @user = new_user
+    end
+
+    @charge = Charge.new(
+        :user_id => @user.id,
+        :token => stripe_charge.id,
+        :amount => @amount,
+      )
+
+    respond_to do |format|
+      if @charge.save
+        format.html { redirect_to @charge, notice: 'Charge was successfully created.' }
+        format.json { render :show, status: :created, location: @charge }
+      else
+        format.html { render :new }
+        format.json { render json: @chrage.errors, status: :unprocessable_entity }
+      end
+    end
 
     logger.info "*" * 80
     logger.info params
