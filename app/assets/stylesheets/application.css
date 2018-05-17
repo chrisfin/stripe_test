@@ -18,6 +18,10 @@
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 .StripeElement {
   background-color: white;
   height: 40px;
@@ -70,4 +74,26 @@
   .form-control {
     color: $state-danger-text;
   }
+}
+
+/* universal */
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
 }
