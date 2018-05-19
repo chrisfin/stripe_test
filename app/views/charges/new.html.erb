@@ -1,39 +1,41 @@
-<h1>Stripe Test Implementations</h1>
+<h1>Checkout <%= @current_user.email %></h1>
 
 <div class="checkout_container">
-    <h2>Stripe Elements</h2>
+    <h2>Purchase Details</h2>
 
     <form action="/charges" method="post" id="payment-form">
     	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      
+      <label>
+          <span>Name on Card</span>
+          <input name="cardholder-name" class="field" id="cardholder-name" required>
+      </label>
+      <label>
+          <span>Address</span>
+          <input name="address" class="field" required>
+      </label>
+      <label>
+          <span>City</span>
+          <input name="city" type="field" class="field" required>
+      </label>
+          <span>State</span>
+          <input name="state" type="field" class="field" width=2 required>
+      </label>
+
       <div class="form-row">
-        <label>
-          <span>First Name</span>
-          <input name="first_name" class="field" placeholder="Jenny" required>
-        </label>
-        <label>
-          <span>Last Name</span>
-          <input name="last_name" class="field" placeholder="Battery" required>
-        </label>
-        <label>
-          <span>Email</span>
-          <input name="email" type="email" class="field" placeholder="jenny@example.com" required>
-        </label>
+        
         <div id="card-element">
           <!-- A Stripe Element will be inserted here. -->
         </div>
 
         <!-- Used to display form errors. -->
         <div id="card-errors" role="alert"></div>
-      </div>
+        </div>
 
       <button class="stripe-button">Submit Payment</button>
     </form>
 
     <%= javascript_include_tag "stripe_elements" %>
-
-    <div>
-      <p>Returning customer?</p>
-    </div>  
 
 </div>
 

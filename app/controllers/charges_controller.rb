@@ -14,7 +14,11 @@ class ChargesController < ApplicationController
 
   # GET /charges/new
   def new
-    @charge = Charge.new
+    if logged_in?
+      @charge = Charge.new
+    else
+      redirect_to login_url
+    end
   end
 
   # GET /charges/1/edit
@@ -26,10 +30,12 @@ class ChargesController < ApplicationController
   def create
     # Amount in cents
     @amount = 3500
+    user = current_user
+    @name_on_card = "Chris"
 
     customer = Stripe::Customer.create(
-      :email => params[:email],
-      :source  => params[:stripeToken]
+      :email => user.email,
+      :source  => params[:stripeSource]
     )
 
     stripe_charge = Stripe::Charge.create(
@@ -41,21 +47,8 @@ class ChargesController < ApplicationController
       :metadata => {'order_id' => 6735},
     )
 
-    @user = User.find_by(email: customer.email)
-
-    unless @user
-      new_user = User.new(
-        :first_name => params[:first_name],
-        :last_name => params[:last_name],
-        :email => customer.email,
-        :cus => customer.id,
-      )
-      new_user.save
-      @user = new_user
-    end
-
     @charge = Charge.new(
-        :user_id => @user.id,
+        :user_id => user.id,
         :token => stripe_charge.id,
         :amount => @amount,
       )
