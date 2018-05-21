@@ -10,21 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514051144) do
+ActiveRecord::Schema.define(version: 20180520231748) do
 
   create_table "charges", force: :cascade do |t|
-    t.string "token"
     t.float "amount"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source"
+    t.string "txn_id"
   end
 
   create_table "editors", force: :cascade do |t|
-    t.string "name"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.date "dob"
+    t.string "address"
+    t.integer "postal_code"
+    t.string "state"
+    t.string "country"
+    t.integer "ssn_last_4"
+    t.integer "personal_id_number"
+    t.integer "id_document"
+    t.string "entity_type"
+    t.date "tos_acceptance_date"
+    t.string "tos_acceptance_IP"
   end
 
   create_table "users", force: :cascade do |t|

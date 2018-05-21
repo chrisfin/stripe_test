@@ -2,7 +2,12 @@
 <h2>Thanks, you paid <strong><%=@amount %></strong>!</h2>
 <p>
   <strong>Charge ID:</strong>
-  <%= @charge.token %>
+  <%= @charge.txn_id %>
+</p>
+
+<p>
+  <strong>Stripe ID:</strong>
+ <%= current_user.cus.nil? %>
 </p>
 
 <%= link_to 'Edit', edit_charge_path(@charge) %> |

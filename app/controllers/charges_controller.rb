@@ -32,14 +32,18 @@ class ChargesController < ApplicationController
     @amount = 3500
     user = current_user
     @name_on_card = "Chris"
+    @cus = user.cus
 
-    customer = Stripe::Customer.create(
-      :email => user.email,
-      :source  => params[:stripeSource]
-    )
-
+    if user.cus.nil?
+      customer = Stripe::Customer.create(
+        :email => user.email,
+        :source  => params[:stripeSource]
+      )
+      user.update_attribute(:cus, customer.id)   
+    end
+    
     stripe_charge = Stripe::Charge.create(
-      :customer    => customer.id,
+      :customer    => user.cus,
       :amount      => @amount,
       :description => 'Rails Stripe customer',
       :currency    => 'usd',
@@ -49,8 +53,9 @@ class ChargesController < ApplicationController
 
     @charge = Charge.new(
         :user_id => user.id,
-        :token => stripe_charge.id,
+        :txn_id => stripe_charge.balance_transaction,
         :amount => @amount,
+        :source => params[:stripeSource],
       )
 
     respond_to do |format|
@@ -104,6 +109,6 @@ class ChargesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def charge_params
-      params.require(:charge).permit(:token)
+      params.require(:charge).permit(:txn_id, :source)
     end
 end
