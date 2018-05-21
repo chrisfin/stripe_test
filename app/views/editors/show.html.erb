@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer ID:</strong>
+  <%= @editor.id %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @editor.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @editor.last_name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @editor.email %>
+</p>
+
+<p>
+  <strong>Date of Birth:</strong>
+  <%= @editor.dob %>
+</p>
+
+<%= link_to 'Edit', edit_editor_path(@editor) %> |
+<%= link_to 'Back', editors_path %>

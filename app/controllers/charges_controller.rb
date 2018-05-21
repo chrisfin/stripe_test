@@ -53,6 +53,7 @@ class ChargesController < ApplicationController
 
     @charge = Charge.new(
         :user_id => user.id,
+        :ch_id => stripe_charge.id,
         :txn_id => stripe_charge.balance_transaction,
         :amount => @amount,
         :source => params[:stripeSource],

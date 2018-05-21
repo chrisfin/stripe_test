@@ -1,5 +1,5 @@
 class EditorsController < ApplicationController
-
+ before_action :set_editor, only: [:show, :edit, :update, :destroy]
   # GET /editors
   # GET /editors.json
   def index
@@ -11,7 +11,7 @@ class EditorsController < ApplicationController
   def show
   end
 
-  # GET /users/new
+  # GET /editors/new
   def new
     @editor = Editor.new
   end
@@ -20,8 +20,8 @@ class EditorsController < ApplicationController
   def edit
   end
 
-  # POST /users
-  # POST /users.json
+  # POST /editors
+  # POST /editors.json
   def create
     @editor = Editor.new(editor_params)
 
@@ -36,8 +36,8 @@ class EditorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
+  # PATCH/PUT /editors/1
+  # PATCH/PUT /editors/1.json
   def update
     respond_to do |format|
       if @editor.update(editor_params)
@@ -50,8 +50,8 @@ class EditorsController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
+  # DELETE /editors/1
+  # DELETE /editors.json
   def destroy
     @editor.destroy
     respond_to do |format|
@@ -62,12 +62,12 @@ class EditorsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = Editor.find(params[:id])
+    def set_editor
+      @editor = Editor.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def editor_params
-      params.require(:editor).permit(:first_name, :last_name, :email)
+      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation)
     end
 end
