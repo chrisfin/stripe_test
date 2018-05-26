@@ -1,5 +1,5 @@
 class EditorsController < ApplicationController
- before_action :set_editor, only: [:show, :edit, :update, :destroy]
+ before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info ]
   # GET /editors
   # GET /editors.json
   def index
@@ -25,6 +25,32 @@ class EditorsController < ApplicationController
   def create
     @editor = Editor.new(editor_params)
 
+    account = Stripe::Account.create(
+      :type => 'custom',
+      :country => 'US',
+      :email => @editor.email,
+      :legal_entity => {      
+          :dob => {
+              :day => @editor.dob.day,
+              :month => @editor.dob.month,
+              :year => @editor.dob.year,
+          },
+          :first_name => @editor.first_name,
+          :last_name => @editor.last_name,
+          :type => "individual",
+      },
+      :tos_acceptance => {
+           :date => Time.now.to_i,
+           :ip => request.remote_ip, 
+      },
+    )
+
+    @editor.acct_id = account.id
+    @editor.entity_type = account.legal_entity.type
+    @editor.country = account.country
+    @editor.tos_acceptance_date = account.tos_acceptance.date
+    @editor.tos_acceptance_IP = account.tos_acceptance.ip
+
     respond_to do |format|
       if @editor.save!
         format.html { redirect_to @editor, notice: 'Editor was successfully created.' }
@@ -34,6 +60,10 @@ class EditorsController < ApplicationController
         format.json { render json: @editor.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def account_info
+    #@editor = Editor.find_by_id(params[:])
   end
 
   # PATCH/PUT /editors/1

@@ -55,6 +55,9 @@ class ChargesController < ApplicationController
         :user_id => user.id,
         :ch_id => stripe_charge.id,
         :txn_id => stripe_charge.balance_transaction,
+        :address => params[:address],
+        :city => params[:city],
+        :state => params[:state],
         :amount => @amount,
         :source => params[:stripeSource],
       )

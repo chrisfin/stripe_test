@@ -10,5 +10,20 @@
  <%= current_user.cus %>
 </p>
 
+<p>
+  <strong>Address:</strong>
+ <%= @charge.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+ <%= @charge.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+ <%= @charge.state %>
+</p>
+
 <%= link_to 'Edit', edit_charge_path(@charge) %> |
 <%= link_to 'Back', charges_path %>

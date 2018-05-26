@@ -1,0 +1,57 @@
+<%= form_with(model: editor, local: true) do |form| %>
+  <% if editor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(editor.errors.count, "error") %> prohibited this editor from being saved:</h2>
+
+      <ul>
+      <% editor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<h2>Address</h2>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :editor_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :editor_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.text_field :state, id: :editor_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Zip Code" %>
+    <%= form.text_field :postal_code, id: :editor_postal_code %>
+  </div>  
+
+<h2>Bank Account Information</h2>
+
+  <div class="field">
+    <%= form.label :bank_name %>
+    <%= form.text_field :bank_name, id: :editor_bank_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bank_account %>
+    <%= form.text_field :bank_account, id: :editor_bank_account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bank_routing %>
+    <%= form.text_field :bank_routing, id: :bank_routing %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>

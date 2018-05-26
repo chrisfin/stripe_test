@@ -1,5 +1,7 @@
-<p id="notice"><%= notice %></p>
-<h1>Editor Account</h1>
+<% provide(:title, "Log in") %>
+<h1>Complete Account Info </h1>
+
+<h2>Personal Information</h2>
 
 <p>
   <strong>First name:</strong>
@@ -21,6 +23,4 @@
   <%= @editor.dob %>
 </p>
 
-<%= link_to 'Edit', edit_editor_path(@editor) %> |
-<%= link_to 'Complete Account Info', editors_account_info_path(@editor) %> |
-<%= link_to 'Back', editors_path %>
+<%= render 'address_form', editor: @editor %>

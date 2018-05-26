@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
   get  	'static_pages/home', to: 'static_pages#home'
+  get  	'/editors/account_info/:id', to: 'editors#account_info', as: :editors_account_info
   get    '/signup',  to: 'users#new'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
