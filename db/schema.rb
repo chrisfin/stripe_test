@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180526070818) do
+ActiveRecord::Schema.define(version: 20180526073921) do
 
   create_table "charges", force: :cascade do |t|
     t.float "amount"
@@ -40,13 +40,13 @@ ActiveRecord::Schema.define(version: 20180526070818) do
     t.integer "personal_id_number"
     t.integer "id_document"
     t.string "entity_type"
-    t.date "tos_acceptance_date"
     t.string "tos_acceptance_IP"
     t.string "password_digest"
     t.string "acct_id"
     t.string "bank_name"
     t.integer "bank_account"
     t.integer "bank_routing"
+    t.integer "tos_acceptance_date"
   end
 
   create_table "users", force: :cascade do |t|
