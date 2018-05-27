@@ -1,5 +1,5 @@
 class EditorsController < ApplicationController
- before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info ]
+ before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info, :account_save]
   # GET /editors
   # GET /editors.json
   def index
@@ -63,7 +63,29 @@ class EditorsController < ApplicationController
   end
 
   def account_info
-    #@editor = Editor.find_by_id(params[:])
+    @acct = Stripe::Account.retrieve(@editor.acct_id)
+  end
+
+  def account_save
+    acct = Stripe::Account.retrieve(@editor.acct_id)
+      acct.account_token = params[:account_token]
+      acct.bank_account_token = params[:bank_account_token]
+    acct.save
+
+    # account_holder_type: "individual",
+    # currency: "USD",
+    # country: "US",
+    
+    #respond_to do |format|
+    #  if @editor.update(editor_params)
+    #    format.html { redirect_to @editor, notice: 'Editor was successfully updated.' }
+    #    format.json { render :show, status: :ok, location: @editor }
+    #  else
+    #    format.html { render :edit }
+    #    format.json { render json: @editor.errors, status: :unprocessable_entity }
+    #  end
+    #end
+
   end
 
   # PATCH/PUT /editors/1
@@ -98,6 +120,6 @@ class EditorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def editor_params
-      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation)
+      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation, :address, :city, :state, :postal_code, :bank_name, :bank_account, :bank_routing)
     end
 end

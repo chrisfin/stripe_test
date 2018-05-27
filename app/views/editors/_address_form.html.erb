@@ -1,4 +1,6 @@
-<%= form_with(model: editor, local: true) do |form| %>
+<%= form_with(model: editor, local: true, id: :account_save, url: editors_account_save_path, class: "account-save", method: "post") do |form| %>
+<input type="hidden" name="account_token" id="account_token">
+<input type="hidden" name="bank_account_token" id="bank_account_token">
   <% if editor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(editor.errors.count, "error") %> prohibited this editor from being saved:</h2>
@@ -15,43 +17,50 @@
 
   <div class="field">
     <%= form.label :address %>
-    <%= form.text_field :address, id: :editor_address %>
+    <%= form.text_field :address, id: :editor_address, class: "inp-street-address1" %>
   </div>
 
   <div class="field">
     <%= form.label :city %>
-    <%= form.text_field :city, id: :editor_city %>
+    <%= form.text_field :city, id: :editor_city, class: "inp-city" %>
   </div>
 
   <div class="field">
     <%= form.label :state %>
-    <%= form.text_field :state, id: :editor_state %>
+    <%= form.text_field :state, id: :editor_state, class: "inp-state", size: "2", maxlength: "2" %>
   </div>
 
   <div class="field">
     <%= form.label "Zip Code" %>
-    <%= form.text_field :postal_code, id: :editor_postal_code %>
+    <%= form.text_field :postal_code, id: :editor_postal_code, class: "inp-zip" %>
   </div>  
 
 <h2>Bank Account Information</h2>
 
   <div class="field">
     <%= form.label :bank_name %>
-    <%= form.text_field :bank_name, id: :editor_bank_name %>
+    <%= form.text_field :bank_name, id: :editor_bank_name, class: "inp-bank-name" %>
   </div>
 
   <div class="field">
     <%= form.label :bank_account %>
-    <%= form.text_field :bank_account, id: :editor_bank_account %>
+    <%= form.text_field :bank_account, id: :editor_bank_account, class: "inp-bank-account" %>
   </div>
 
   <div class="field">
     <%= form.label :bank_routing %>
-    <%= form.text_field :bank_routing, id: :bank_routing %>
+    <%= form.text_field :bank_routing, id: :bank_routing, class: "inp-bank-routing" %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Last 4 of SSN" %>
+    <%= form.text_field :ssn_last_4, id: :ssn_last_4, class: "inp-last4", size: "4", maxlength: "4" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+      <button>Submit</button>
   </div>
+
+<%= javascript_include_tag "stripe_account_token" %>
 
 <% end %>
