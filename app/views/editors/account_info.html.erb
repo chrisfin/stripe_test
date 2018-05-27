@@ -1,26 +1,42 @@
-<% provide(:title, "Log in") %>
+
 <h1>Complete Account Info</h1>
 
 <h2>Personal Information</h2>
 
-<p>
-  <strong>First name:</strong>
-  <%= @editor.first_name %>
-</p>
+<form class="my-form" action="/editors/account_save/9" method="post">
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="accountToken" id="accountToken">
 
-<p>
-  <strong>Last name:</strong>
-  <%= @editor.last_name %>
-</p>
+<p><legend>Legal Name</legend></p>  
+  <label>    
+    <span>First Name</span>
+    <input class="inp-first-name" name="first_name" value= <%= @editor.first_name %> >
+  </label>
+  <label>
+    <span>Last Name</span>
+    <input class="inp-last-name" name="last_name" value= <%= @editor.last_name %> >
+  </label>
 
-<p>
-  <strong>Email:</strong>
-  <%= @editor.email %>
-</p>
+  <fieldset>
+ <p><legend>Address</legend></p>
+    <label>
+      <span>Street Address Line 1</span>
+      <input class="inp-street-address1" name="street_address1" required>
+    </label>
+    <label>
+      <span>City</span>
+      <input class="inp-city" name="city" required>
+    </label>
+    <label>
+      <span>State</span>
+      <input class="inp-state" name="state" required
+    </label>
+    <label>
+      <span>Postal Code</span>
+      <input class="inp-zip" name="zip" required>
+    </label>  
+  <button>Submit</button>
 
-<p>
-  <strong>Date of Birth:</strong>
-  <%= @editor.dob %>
-</p>
+</form>
 
-<%= render 'address_form', editor: @editor %>
+<%= javascript_include_tag "stripe_account_token" %>

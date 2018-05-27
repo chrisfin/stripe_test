@@ -1,0 +1,31 @@
+<h1>Complete Account Info</h1>
+
+<form class="my-form" action="/editors/bank_save/9" method="post">
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="bankToken" id="bankToken">
+
+<p><legend>Bank Account</legend></p>
+	<label>
+      <span>Account Holder Name</span>
+      <input class="inp-bank-account" name="inp-account_holder" value= <%= @account_name %> required>
+    </label>
+	<label>
+      <span>Bank Name</span>
+      <input class="inp-bank-account" name="inp-bank-account" required>
+    </label>
+    <label>
+      <span>Account Number</span>
+      <input class="inp-account-number" name="inp-account-number" required>
+    </label>
+     <label>
+      <span>Routing Number</span>
+      <input class="inp-routing-number" name="inp-routing-number" required>
+    </label>
+    <label>
+      <span>Social Security Number (Last 4 Digits)</span>
+      <input class="inp-last4" name="inp-last4" size=4 maxlength=4 required >
+    </label>  
+  <button>Submit</button>
+</form>
+
+<%= javascript_include_tag "stripe_bank_token" %>

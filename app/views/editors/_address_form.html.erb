@@ -1,5 +1,6 @@
-<%= form_with(model: editor, local: true, id: :account_save, url: editors_account_save_path, class: "account-save", method: "post") do |form| %>
-<input type="hidden" name="account_token" id="account_token">
+
+<%= form_with(model: editor, local: true, id: :account_save, url: editors_account_save_path, class: "my-form", method: "post") do |form| %>
+<input type="hidden" name="token" id="token">
 <input type="hidden" name="bank_account_token" id="bank_account_token">
   <% if editor.errors.any? %>
     <div id="error_explanation">
@@ -61,6 +62,6 @@
       <button>Submit</button>
   </div>
 
-<%= javascript_include_tag "stripe_account_token" %>
-
 <% end %>
+
+<%= javascript_include_tag "stripe_account_token" %>

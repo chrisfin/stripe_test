@@ -1,5 +1,5 @@
 class EditorsController < ApplicationController
- before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info, :account_save]
+ before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info, :account_save, :bank_info, :bank_save]
   # GET /editors
   # GET /editors.json
   def index
@@ -67,25 +67,30 @@ class EditorsController < ApplicationController
   end
 
   def account_save
-    acct = Stripe::Account.retrieve(@editor.acct_id)
-      acct.account_token = params[:account_token]
-      acct.bank_account_token = params[:bank_account_token]
-    acct.save
-
-    # account_holder_type: "individual",
-    # currency: "USD",
-    # country: "US",
+    acct = Stripe::Account.retrieve(@editor.acct_id) 
+    acct.account_token = params[:accountToken]
     
-    #respond_to do |format|
-    #  if @editor.update(editor_params)
-    #    format.html { redirect_to @editor, notice: 'Editor was successfully updated.' }
-    #    format.json { render :show, status: :ok, location: @editor }
-    #  else
-    #    format.html { render :edit }
-    #    format.json { render json: @editor.errors, status: :unprocessable_entity }
-    #  end
-    #end
+      if acct.save
+        redirect_to :editors_bank_info
+      else
+        format.html { render :editors_account_info }
+      end
+  end
 
+  def bank_info
+    @acct = Stripe::Account.retrieve(@editor.acct_id)
+    @account_name = @editor.first_name << @editor.last_name
+  end
+
+  def bank_save
+    acct = Stripe::Account.retrieve(@editor.acct_id) 
+    acct.external_account = params[:bankToken]
+
+    if acct.save
+        redirect_to @editor
+    else
+        format.html { render :editors_bank_info }
+    end
   end
 
   # PATCH/PUT /editors/1
