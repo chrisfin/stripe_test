@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180526203439) do
+ActiveRecord::Schema.define(version: 20180528032153) do
 
   create_table "charges", force: :cascade do |t|
     t.float "amount"
@@ -32,22 +32,9 @@ ActiveRecord::Schema.define(version: 20180526203439) do
     t.string "first_name"
     t.string "last_name"
     t.date "dob"
-    t.string "address"
-    t.integer "postal_code"
-    t.string "state"
-    t.string "country"
-    t.integer "ssn_last_4"
-    t.integer "personal_id_number"
-    t.integer "id_document"
-    t.string "entity_type"
-    t.string "tos_acceptance_IP"
     t.string "password_digest"
     t.string "acct_id"
-    t.string "bank_name"
     t.integer "bank_account"
-    t.integer "bank_routing"
-    t.integer "tos_acceptance_date"
-    t.string "city"
   end
 
   create_table "users", force: :cascade do |t|

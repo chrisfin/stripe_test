@@ -46,10 +46,6 @@ class EditorsController < ApplicationController
     )
 
     @editor.acct_id = account.id
-    @editor.entity_type = account.legal_entity.type
-    @editor.country = account.country
-    @editor.tos_acceptance_date = account.tos_acceptance.date
-    @editor.tos_acceptance_IP = account.tos_acceptance.ip
 
     respond_to do |format|
       if @editor.save!
@@ -125,6 +121,6 @@ class EditorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def editor_params
-      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation, :address, :city, :state, :postal_code, :bank_name, :bank_account, :bank_routing)
+      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation)
     end
 end

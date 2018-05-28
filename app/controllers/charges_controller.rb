@@ -1,5 +1,5 @@
 class ChargesController < ApplicationController
-  before_action :set_charge, only: [:show, :edit, :update, :destroy]
+  before_action :set_charge, only: [:show, :edit, :update, :destroy, :confirm]
 
   # GET /charges
   # GET /charges.json
@@ -79,6 +79,10 @@ class ChargesController < ApplicationController
     rescue Stripe::CardError => e
       flash[:error] = e.message
       redirect_to new_charge_path
+  end
+
+  def confirm
+
   end
 
   # PATCH/PUT /charges/1
