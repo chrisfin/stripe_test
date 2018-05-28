@@ -3,8 +3,7 @@
 
 <h2>Personal Information</h2>
 
-<form class="my-form" action="/editors/account_save/9" method="post">
-<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<%= form_with(scope: :post, url: editors_account_save_path(@editor), class: "my-form") do |form| %>
   <input type="hidden" name="accountToken" id="accountToken">
 
 <p><legend>Legal Name</legend></p>  
@@ -37,6 +36,6 @@
     </label>  
   <button>Submit</button>
 
-</form>
+<% end %>
 
 <%= javascript_include_tag "stripe_account_token" %>
