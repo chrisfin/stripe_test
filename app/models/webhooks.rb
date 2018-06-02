@@ -36,4 +36,40 @@ module Webhooks
 			end
 		end
 	end
+
+	class ChargePending
+		def call(event)
+			charge = event.data.object
+			user = User.find_by(cus: charge.customer)
+			c = Charge.find_by(ch_id: charge.id)
+			if c.nil?
+				c = Charge.new(
+					charge_status: charge.status,
+				)
+				c.save
+			else
+				c.update(
+					charge_status: charge.status,
+				)
+			end
+		end
+	end
+
+	class ChargeFailed
+		def call(event)
+			charge = event.data.object
+			user = User.find_by(cus: charge.customer)
+			c = Charge.find_by(ch_id: charge.id)
+			if c.nil?
+				c = Charge.new(
+					charge_status: charge.status,
+				)
+				c.save
+			else
+				c.update(
+					charge_status: charge.status,
+				)
+			end
+		end
+	end
 end

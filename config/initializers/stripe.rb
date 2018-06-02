@@ -8,4 +8,6 @@ StripeEvent.signing_secret = 'whsec_oAQTGNOvtdmvrTkSzV3dFM70v83KvIg4'
 
 StripeEvent.configure do |events|
   events.subscribe 'charge.succeeded', Webhooks::ChargeSucceeded.new
+  events.subscribe 'charge.pending', Webhooks::ChargePending.new
+  events.subscribe 'charge.failed', Webhooks::ChargeFailed.new
 end
