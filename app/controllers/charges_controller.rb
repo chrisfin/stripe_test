@@ -51,8 +51,9 @@ class ChargesController < ApplicationController
       :metadata => {'order_id' => 6735},
     )
 
-    @charge = Charge.new(
+     @charge = Charge.new(
         :user_id => user.id,
+        :cus => user.cus,
         :ch_id => stripe_charge.id,
         :txn_id => stripe_charge.balance_transaction,
         :address => params[:address],

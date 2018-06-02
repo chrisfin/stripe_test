@@ -4,3 +4,8 @@ Rails.configuration.stripe = {
 }
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
+StripeEvent.signing_secret = 'whsec_oAQTGNOvtdmvrTkSzV3dFM70v83KvIg4'
+
+StripeEvent.configure do |events|
+  events.subscribe 'charge.succeeded', Webhooks::ChargeSucceeded.new
+end

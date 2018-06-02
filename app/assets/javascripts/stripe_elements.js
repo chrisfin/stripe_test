@@ -50,6 +50,7 @@
 		var name = form.querySelector('input[name="cardholder-name"]').value;
 		var address = form.querySelector('input[name="address"]').value;
 		var city = form.querySelector('input[name="city"]').value;
+		var state = form.querySelector('input[name="state"]').value;
 
 		var ownerInfo = {
 		  owner: {
@@ -57,6 +58,7 @@
 		    address: {
 		      line1: address,
 		      city: city,
+		      state: state,
 		      country: 'US',
 		    },
 		  },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180528032153) do
+ActiveRecord::Schema.define(version: 20180602035322) do
 
   create_table "charges", force: :cascade do |t|
     t.float "amount"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20180528032153) do
     t.string "address"
     t.string "city"
     t.string "state"
+    t.string "cus"
+    t.integer "postal_code"
+    t.string "charge_status"
   end
 
   create_table "editors", force: :cascade do |t|
