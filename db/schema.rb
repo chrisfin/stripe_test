@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180602035322) do
+ActiveRecord::Schema.define(version: 20180603185500) do
 
   create_table "charges", force: :cascade do |t|
     t.float "amount"
@@ -37,7 +37,10 @@ ActiveRecord::Schema.define(version: 20180602035322) do
     t.date "dob"
     t.string "password_digest"
     t.string "acct_id"
-    t.integer "bank_account"
+    t.string "verification_status_le"
+    t.string "verification_disabled_reason"
+    t.string "verification_fields_needed"
+    t.string "ba_id"
   end
 
   create_table "users", force: :cascade do |t|

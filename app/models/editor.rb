@@ -1,4 +1,5 @@
 class Editor < ApplicationRecord
+  serialize :verification_fields_needed
 	before_save { email.downcase! }
 	validates :first_name, presence: true, length: { maximum: 50 }
 	validates :last_name, presence: true, length: { maximum: 50 }
@@ -8,7 +9,8 @@ class Editor < ApplicationRecord
 	                    format: { with: VALID_EMAIL_REGEX },
 	                   uniqueness: { case_sensitive: false }
    	has_secure_password
-   	validates :password, presence: true, length: { minimum: 6 }
+   	validates :password, presence: true, length: { minimum: 6 }, on: :create
+
 
   # Returns the hash digest of the given string.
   def Editor.digest(string)

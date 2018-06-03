@@ -72,4 +72,36 @@ module Webhooks
 			end
 		end
 	end
+
+	class AccountUpdated
+		def call(event)
+			account = event.data.object
+			e = Editor.find_by(acct_id: account.id)
+			e.update!(
+				verification_status_le: account.legal_entity.verification.status,
+				verification_disabled_reason: account.verification.disabled_reason,
+				verification_fields_needed: account.verification.fields_needed,
+				)
+		end
+	end
+
+	class AccountExternalAccountUpdated
+		def call(event)
+			account = event.data.object
+			e = Editor.find_by(acct_id: account.account)
+			e.update(
+				ba_id: account.id
+				)
+		end
+	end
+
+	class AccountExternalAccountCreated
+		def call(event)
+			account = event.data.object
+			e = Editor.find_by(acct_id: account.account)
+			e.update(
+				ba_id: account.id
+				)
+		end
+	end
 end

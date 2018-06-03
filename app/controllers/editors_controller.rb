@@ -121,6 +121,6 @@ class EditorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def editor_params
-      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation)
+      params.require(:editor).permit(:first_name, :last_name, :email, :dob, :password, :password_confirmation, :bankToken, :accountToken)
     end
 end
