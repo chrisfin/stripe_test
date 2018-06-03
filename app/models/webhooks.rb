@@ -81,6 +81,7 @@ module Webhooks
 				verification_status_le: account.legal_entity.verification.status,
 				verification_disabled_reason: account.verification.disabled_reason,
 				verification_fields_needed: account.verification.fields_needed,
+				payouts_enabled: account.payouts_enabled,
 				)
 		end
 	end

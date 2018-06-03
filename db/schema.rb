@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603185500) do
+ActiveRecord::Schema.define(version: 20180603192319) do
 
   create_table "charges", force: :cascade do |t|
     t.float "amount"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180603185500) do
     t.string "verification_disabled_reason"
     t.string "verification_fields_needed"
     t.string "ba_id"
+    t.boolean "payouts_enabled"
   end
 
   create_table "users", force: :cascade do |t|

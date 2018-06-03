@@ -75,7 +75,6 @@ class EditorsController < ApplicationController
 
   def bank_info
     @acct = Stripe::Account.retrieve(@editor.acct_id)
-    @account_name = @editor.first_name << @editor.last_name
   end
 
   def bank_save
