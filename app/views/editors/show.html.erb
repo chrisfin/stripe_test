@@ -23,4 +23,5 @@
 
 <%= link_to 'Edit', edit_editor_path(@editor) %> |
 <%= link_to 'Complete Account Info', editors_account_info_path(@editor) %> |
+<%= link_to 'Create a New App', new_app_path(:editor_id => @editor) %> |
 <%= link_to 'Back', editors_path %>

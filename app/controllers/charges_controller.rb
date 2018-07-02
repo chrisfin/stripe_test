@@ -16,6 +16,7 @@ class ChargesController < ApplicationController
   def new
     if logged_in?
       @charge = Charge.new
+      @app = App.find(params[:app_id])
     else
       redirect_to login_url
     end
@@ -29,10 +30,9 @@ class ChargesController < ApplicationController
   # POST /charges.json
   def create
     # Amount in cents
-    @amount = 3500
     user = current_user
-    @name_on_card = "Chris"
     @cus = user.cus
+    app = App.find(params[:app_id])
 
     if user.cus.nil?
       customer = Stripe::Customer.create(
@@ -44,32 +44,33 @@ class ChargesController < ApplicationController
     
     stripe_charge = Stripe::Charge.create(
       :customer    => user.cus,
-      :amount      => @amount,
+      :amount      => app.amount,
       :description => 'Rails Stripe customer',
       :currency    => 'usd',
       :statement_descriptor => 'LiveArticle Sub',
       :metadata => {'order_id' => 6735},
     )
 
-     @charge = Charge.new(
-        :user_id => user.id,
-        :cus => user.cus,
-        :ch_id => stripe_charge.id,
-        :txn_id => stripe_charge.balance_transaction,
-        :address => params[:address],
-        :city => params[:city],
-        :state => params[:state],
-        :amount => @amount,
-        :source => params[:stripeSource],
-      )
+    @charge = Charge.new(
+      :user_id => user.id,
+      :cus => user.cus,
+      :ch_id => stripe_charge.id,
+      :txn_id => stripe_charge.balance_transaction,
+      :address => params[:address],
+      :city => params[:city],
+      :state => params[:state],
+      :amount => app.amount,
+      :source => params[:stripeSource],
+      :editor_id => app.editor.id,
+    )
 
     respond_to do |format|
-      if @charge.save
+      if @charge.save!
         format.html { redirect_to @charge, notice: 'Charge was successfully created.' }
         format.json { render :show, status: :created, location: @charge }
       else
         format.html { render :new }
-        format.json { render json: @chrage.errors, status: :unprocessable_entity }
+        format.json { render json: @charge.errors, status: :unprocessable_entity }
       end
     end
 
@@ -118,6 +119,6 @@ class ChargesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def charge_params
-      params.require(:charge).permit(:txn_id, :source)
+      params.require(:charge).permit(:txn_id, :source, :amount, :app_id)
     end
 end

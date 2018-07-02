@@ -1,5 +1,5 @@
 class EditorsController < ApplicationController
- before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info, :account_save, :bank_info, :bank_save]
+ before_action :set_editor, only: [:show, :edit, :update, :destroy, :account_info, :account_save, :bank_info, :bank_save, :id_info, :id_save]
   # GET /editors
   # GET /editors.json
   def index
@@ -65,6 +65,7 @@ class EditorsController < ApplicationController
   def account_save
     acct = Stripe::Account.retrieve(@editor.acct_id) 
     acct.account_token = params[:accountToken]
+    acct.metadata = {id: @editor.id}
     
       if acct.save
         redirect_to :editors_bank_info
@@ -85,6 +86,20 @@ class EditorsController < ApplicationController
         redirect_to @editor
     else
         format.html { render :editors_bank_info }
+    end
+  end
+
+  def id_info
+  end
+
+  def id_save
+    acct = Stripe::Account.retrieve(@editor.acct_id) 
+    acct.legal_entity.verification.document = params[:idToken]
+
+    if acct.save
+        redirect_to @editor
+    else
+        format.html { render :editors_id_info }
     end
   end
 

@@ -12,9 +12,11 @@ Rails.application.routes.draw do
   get     '/editors/bank_info/:id', to: 'editors#bank_info', as: :editors_bank_info
   post    '/editors/bank_save/:id', to: 'editors#bank_save', as: :editors_bank_save
   get     '/charges/confirm', to: 'charges#confirm', as: :charges_confirm
+  get     '/editors/id_info/:id', to: 'editors#id_info', as: :editors_id_info
+  post    '/editors/id_save/:id', to: 'editors#id_save', as: :editors_id_save
 
   
 
-  resources :charges, :users, :editors
+  resources :charges, :users, :editors, :apps
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

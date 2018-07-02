@@ -1,0 +1,29 @@
+<h1>Subscribe to an App</h1>
+
+  <% if logged_in? %>
+    <table>
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Amount</th>
+	      <th>Editor</th>
+	      <th>Subscribe</th>
+	      <th colspan="4"></th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @apps.each do |app| %>
+	      <tr>
+	        <td><%= app.name %></td>
+	        <td><%= app.amount %></td>
+	        <td>by <%= app.editor.first_name %> <%= app.editor.last_name %></td>
+	        <td><%= link_to 'Subscribe', new_charge_path(:app_id => app.id) %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+  <% else %>
+    <%= link_to "Log in", login_path %>
+  <% end %>

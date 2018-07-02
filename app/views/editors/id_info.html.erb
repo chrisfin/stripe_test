@@ -1,0 +1,12 @@
+<%= form_with(scope: :post, url: editors_id_save_path(@editor), class: "my-form") do |form| %>
+  <input type="hidden" name="idToken" id="idToken">
+	<label>
+      <span>Upload Identify Document (Driver's Licence or Passport)</span>
+      	<input type="file" id="id-file" name="id-file" accept=".jpeg,.jpg,.png">
+    </label>
+
+   <button>Submit</button>
+
+<% end %>
+
+<%= javascript_include_tag "stripe_id_doc" %>
