@@ -45,10 +45,13 @@ class ChargesController < ApplicationController
     stripe_charge = Stripe::Charge.create(
       :customer    => user.cus,
       :amount      => app.amount,
-      :description => 'Rails Stripe customer',
+      :description => app.name,
       :currency    => 'usd',
-      :statement_descriptor => 'LiveArticle Sub',
-      :metadata => {'order_id' => 6735},
+      :statement_descriptor => 'StripeTest Sub',
+      :metadata => {'user_id' => user.id, 'editor_id' => app.editor.id, 'app_id' => app.id},
+      :destination => {
+        :account => app.editor.acct_id,
+      }
     )
 
     @charge = Charge.new(
